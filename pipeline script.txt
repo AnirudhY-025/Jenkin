@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scmGit(branches: [[name: 'main']], extensions: [], userRemoteConfigs: [[credentialsId: 'AnirudhY-025', url: 'https://github.com/AnirudhY-025/srt.git']])
+            }
+        }
+        stage('Build') {
+            steps {
+                git branch: 'main', credentialsId: 'AnirudhY-025', url: 'https://github.com/AnirudhY-025/srt.git'
+                bat 'python sort.py'
+                
+            }
+        }
+        stage('Test') {
+            steps {
+                echo "Testing is done"
+            }
+        }
+    }
+}
